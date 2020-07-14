@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Virufy</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="record_btn_txt">Record</string>
+    <string name="pause_btn_txt">Pause</string>
+    <string name="playback_btn_txt">Playback</string>
+    <string name="submit_btn_txt">Submit</string>
+    <string name="retake_btn_txt">Retake</string>
+    <string name="stop_btn_txt">Stop</string>
+
+    <string-array name="fragment_names">
+        <item>Calibrate</item>
+        <item>Record Coughr</item>
+        <item>Questions</item>
+    </string-array>
 </resources>
