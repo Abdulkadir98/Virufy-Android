@@ -11,13 +11,13 @@ import com.example.virufy.R
 /**
  * A simple [Fragment] subclass.
  */
-class RecordAudioFragment : Fragment() {
+class RecordCoughFragment : Fragment() {
 
     companion object {
         const val ARG_POSITION = "position"
 
         fun getInstance(position: Int): Fragment {
-            val recordAudioFragment = RecordAudioFragment()
+            val recordAudioFragment = RecordCoughFragment()
             val bundle = Bundle()
             bundle.putInt(ARG_POSITION, position)
             recordAudioFragment.arguments = bundle

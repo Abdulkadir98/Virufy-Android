@@ -9,6 +9,9 @@
     <string name="submit_btn_txt">Submit</string>
     <string name="retake_btn_txt">Retake</string>
     <string name="stop_btn_txt">Stop</string>
+    <string name="calibrate_tv_txt">Calibrate</string>
+    <string name="record_cough_tv_txt">Record Cough</string>
+    <string name="questions_tv_txt">Questions</string>
 
     <string-array name="fragment_names">
         <item>Calibrate</item>

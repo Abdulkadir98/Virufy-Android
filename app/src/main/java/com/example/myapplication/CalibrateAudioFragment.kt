@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 
+import android.content.Context
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Bundle
@@ -36,14 +37,21 @@ class CalibrateAudioFragment : Fragment() {
 
     private var recordState = RecordStates.START
 
+    var listener: OnAudioSubmittedListener? = null
+
+
+
+    // Container Activity must implement this interface
+    interface OnAudioSubmittedListener {
+        fun onAudioSubmitted()
+    }
+
     companion object {
         const val ARG_POSITION = "position"
 
-        fun getInstance(position: Int): Fragment {
+        fun getInstance(): Fragment {
             val calibrateAudioFragment = CalibrateAudioFragment()
             val bundle = Bundle()
-            bundle.putInt(ARG_POSITION, position)
-            calibrateAudioFragment.arguments = bundle
             return calibrateAudioFragment
         }
     }
@@ -59,6 +67,14 @@ class CalibrateAudioFragment : Fragment() {
 
         updateUi(recordState)
         return rootView
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        listener = context as? OnAudioSubmittedListener
+        if (listener == null) {
+            throw ClassCastException("$context must implement OnArticleSelectedListener")
+        }
     }
 
     private fun onRecord(start: Boolean) = if (start) {
@@ -100,10 +116,10 @@ class CalibrateAudioFragment : Fragment() {
         when(state) {
             RecordStates.START -> {
                 rootView.recordBtn.visibility = View.VISIBLE
-                rootView.pauseBtn.visibility = View.GONE
-                rootView.stopBtn.visibility = View.GONE
-                rootView.playbackBtn.visibility = View.GONE
-                rootView.retakeBtn.visibility = View.GONE
+                rootView.pauseBtn.visibility = View.INVISIBLE
+                rootView.stopBtn.visibility = View.INVISIBLE
+                rootView.playbackBtn.visibility = View.INVISIBLE
+                rootView.retakeBtn.visibility = View.INVISIBLE
 
                 rootView.submitBtn.isEnabled = false
 
@@ -117,9 +133,9 @@ class CalibrateAudioFragment : Fragment() {
             }
 
             RecordStates.RECORD -> {
-                rootView.recordBtn.visibility = View.GONE
-                rootView.playbackBtn.visibility = View.GONE
-                rootView.retakeBtn.visibility = View.GONE
+                rootView.recordBtn.visibility = View.INVISIBLE
+                rootView.playbackBtn.visibility = View.INVISIBLE
+                rootView.retakeBtn.visibility = View.INVISIBLE
 
                 rootView.pauseBtn.visibility = View.VISIBLE
                 rootView.stopBtn.visibility = View.VISIBLE
@@ -134,9 +150,9 @@ class CalibrateAudioFragment : Fragment() {
             }
 
             RecordStates.RETAKE -> {
-                rootView.recordBtn.visibility = View.GONE
-                rootView.pauseBtn.visibility = View.GONE
-                rootView.stopBtn.visibility = View.GONE
+                rootView.recordBtn.visibility = View.INVISIBLE
+                rootView.pauseBtn.visibility = View.INVISIBLE
+                rootView.stopBtn.visibility = View.INVISIBLE
 
                 rootView.playbackBtn.visibility = View.VISIBLE
                 rootView.retakeBtn.visibility = View.VISIBLE
@@ -150,6 +166,10 @@ class CalibrateAudioFragment : Fragment() {
                 rootView.retakeBtn.setOnClickListener {
                     recordState = RecordStates.START
                     updateUi(recordState)
+                }
+
+                rootView.submitBtn.setOnClickListener {
+                    listener?.onAudioSubmitted()
                 }
             }
         }
