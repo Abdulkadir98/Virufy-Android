@@ -77,104 +77,6 @@ class CalibrateAudioFragment : Fragment() {
         }
     }
 
-    private fun onRecord(start: Boolean) = if (start) {
-        rootView.chronometer.start()
-        rootView.recordBtn.visibility = View.INVISIBLE
-        rootView.pauseBtn.visibility = View.VISIBLE
-        rootView.stopBtn.visibility = View.VISIBLE
-        startRecording()
-    } else {
-        stopRecording()
-        rootView.chronometer.base = SystemClock.elapsedRealtime()
-        rootView.chronometer.stop()
-    }
-
-    private fun onPlay(start: Boolean) = if (start) {
-        startPlaying()
-    } else {
-        stopPlaying()
-    }
-
-    private fun startPlaying() {
-        player = MediaPlayer().apply {
-            try {
-                setDataSource(fileName)
-                prepare()
-                start()
-            } catch (e: IOException) {
-                Log.e(LOG_TAG, "prepare() failed")
-            }
-        }
-    }
-
-    private fun stopPlaying() {
-        player?.release()
-        player = null
-    }
-
-    fun updateUi(state: RecordStates) {
-        when(state) {
-            RecordStates.START -> {
-                rootView.recordBtn.visibility = View.VISIBLE
-                rootView.pauseBtn.visibility = View.INVISIBLE
-                rootView.stopBtn.visibility = View.INVISIBLE
-                rootView.playbackBtn.visibility = View.INVISIBLE
-                rootView.retakeBtn.visibility = View.INVISIBLE
-
-                rootView.submitBtn.isEnabled = false
-
-                rootView.recordBtn.setOnClickListener {
-                    startRecording()
-                    rootView.chronometer.base = SystemClock.elapsedRealtime()
-                    rootView.chronometer.start()
-                    recordState = RecordStates.RECORD
-                    updateUi(recordState)
-                }
-            }
-
-            RecordStates.RECORD -> {
-                rootView.recordBtn.visibility = View.INVISIBLE
-                rootView.playbackBtn.visibility = View.INVISIBLE
-                rootView.retakeBtn.visibility = View.INVISIBLE
-
-                rootView.pauseBtn.visibility = View.VISIBLE
-                rootView.stopBtn.visibility = View.VISIBLE
-
-                rootView.stopBtn.setOnClickListener {
-                    stopRecording()
-                    rootView.chronometer.stop()
-                    rootView.chronometer.base = SystemClock.elapsedRealtime()
-                    recordState = RecordStates.RETAKE
-                    updateUi(recordState)
-                }
-            }
-
-            RecordStates.RETAKE -> {
-                rootView.recordBtn.visibility = View.INVISIBLE
-                rootView.pauseBtn.visibility = View.INVISIBLE
-                rootView.stopBtn.visibility = View.INVISIBLE
-
-                rootView.playbackBtn.visibility = View.VISIBLE
-                rootView.retakeBtn.visibility = View.VISIBLE
-
-                rootView.submitBtn.isEnabled = true
-
-                rootView.playbackBtn.setOnClickListener {
-                    startPlaying()
-                }
-
-                rootView.retakeBtn.setOnClickListener {
-                    recordState = RecordStates.START
-                    updateUi(recordState)
-                }
-
-                rootView.submitBtn.setOnClickListener {
-                    listener?.onAudioSubmitted()
-                }
-            }
-        }
-    }
-
     private fun startRecording() {
         recorder = MediaRecorder().apply {
             setAudioSource(MediaRecorder.AudioSource.MIC)
@@ -199,6 +101,103 @@ class CalibrateAudioFragment : Fragment() {
         }
         recorder = null
     }
+
+    private fun startPlaying() {
+        player = MediaPlayer().apply {
+            try {
+                setDataSource(fileName)
+                prepare()
+                start()
+            } catch (e: IOException) {
+                Log.e(LOG_TAG, "prepare() failed")
+            }
+        }
+        player?.setOnCompletionListener {
+            rootView.chronometer.stop()
+        }
+    }
+
+    private fun stopPlaying() {
+        player?.release()
+        player = null
+    }
+
+
+    fun updateUi(state: RecordStates) {
+        when(state) {
+            RecordStates.START -> {
+
+                showViews(rootView.recordBtn)
+                hideViews(rootView.pauseBtn, rootView.stopBtn, rootView.playbackBtn,
+                    rootView.retakeBtn)
+
+                rootView.submitBtn.isEnabled = false
+                rootView.chronometer.base = SystemClock.elapsedRealtime()
+
+                rootView.recordBtn.setOnClickListener {
+                    startRecording()
+                    rootView.chronometer.base = SystemClock.elapsedRealtime()
+                    rootView.chronometer.start()
+                    recordState = RecordStates.RECORD
+                    updateUi(recordState)
+                }
+            }
+
+            RecordStates.RECORD -> {
+
+                hideViews(rootView.recordBtn, rootView.playbackBtn, rootView.retakeBtn)
+                showViews(rootView.pauseBtn, rootView.stopBtn)
+
+                rootView.stopBtn.setOnClickListener {
+                    stopRecording()
+                    rootView.chronometer.stop()
+                    recordState = RecordStates.RETAKE
+                    updateUi(recordState)
+                }
+            }
+
+            RecordStates.RETAKE -> {
+
+                hideViews(rootView.recordBtn, rootView.pauseBtn, rootView.stopBtn)
+                showViews(rootView.playbackBtn, rootView.retakeBtn)
+
+                rootView.submitBtn.isEnabled = true
+
+                rootView.playbackBtn.setOnClickListener {
+                    startPlaying()
+                    rootView.chronometer.base = SystemClock.elapsedRealtime()
+                    rootView.chronometer.start()
+
+                }
+
+                rootView.retakeBtn.setOnClickListener {
+                    recordState = RecordStates.START
+                    updateUi(recordState)
+                }
+
+                rootView.submitBtn.setOnClickListener {
+                    stopPlaying()
+                    listener?.onAudioSubmitted()
+                }
+            }
+        }
+    }
+
+    private fun hideViews(vararg  views: View) {
+
+        for (view in views) {
+            view.visibility = View.INVISIBLE
+        }
+
+    }
+
+    private fun showViews(vararg views: View) {
+        for (view in views) {
+            view.visibility = View.VISIBLE
+        }
+    }
+
+
 
     override fun onStop() {
         super.onStop()
