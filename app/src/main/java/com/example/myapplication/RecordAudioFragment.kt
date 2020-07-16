@@ -25,7 +25,7 @@ enum class RecordStates {
     START, RECORD, RETAKE
 }
 
-class CalibrateAudioFragment : Fragment() {
+class RecordAudioFragment : Fragment() {
 
     private lateinit var rootView: View
 
@@ -43,14 +43,14 @@ class CalibrateAudioFragment : Fragment() {
 
     // Container Activity must implement this interface
     interface OnAudioSubmittedListener {
-        fun onAudioSubmitted()
+        fun onAudioSubmitted(stage: String)
     }
 
     companion object {
         const val ARG_POSITION = "position"
 
         fun getInstance(): Fragment {
-            val calibrateAudioFragment = CalibrateAudioFragment()
+            val calibrateAudioFragment = RecordAudioFragment()
             val bundle = Bundle()
             return calibrateAudioFragment
         }
@@ -177,7 +177,7 @@ class CalibrateAudioFragment : Fragment() {
 
                 rootView.submitBtn.setOnClickListener {
                     stopPlaying()
-                    listener?.onAudioSubmitted()
+                    listener?.onAudioSubmitted(arguments?.getString("stage")!!)
                 }
             }
         }
