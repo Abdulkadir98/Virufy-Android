@@ -29,6 +29,7 @@ public class SplashScreen extends AppCompatActivity {
         this.setContentView(R.layout.activity_splash_screen);
         message = findViewById(R.id.message);
 
+//        startActivity(new Intent(SplashScreen.this, Consent_Study.class));
         new CountDownTimer(108 * s.length(), 65) {
             @Override
             public void onTick(long l) {

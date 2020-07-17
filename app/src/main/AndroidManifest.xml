@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.myapplication.Consent_Study"></activity>
+        <activity android:name="com.example.myapplication.Consent_Study" android:parentActivityName="com.example.myapplication.TermsAndServices">
+
+        </activity>
         <activity android:name="com.example.myapplication.TermsAndServices" />
         <activity android:name="com.example.myapplication.GetStartedPage" />
         <activity android:name="com.example.myapplication.SplashScreen">
