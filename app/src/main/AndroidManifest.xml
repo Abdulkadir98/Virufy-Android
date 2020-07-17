@@ -11,11 +11,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.myapplication.AudioRecordActivity">
+        <activity android:name="com.example.myapplication.Consent_Study"></activity>
+        <activity android:name="com.example.myapplication.TermsAndServices" />
+        <activity android:name="com.example.myapplication.GetStartedPage" />
+        <activity android:name="com.example.myapplication.SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity android:name="com.example.myapplication.AudioRecordActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
