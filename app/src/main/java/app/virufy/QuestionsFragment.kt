@@ -1,4 +1,4 @@
-package com.example.myapplication
+package app.virufy
 
 
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.virufy.R
+import app.virufy.R
 
 /**
  * A simple [Fragment] subclass.

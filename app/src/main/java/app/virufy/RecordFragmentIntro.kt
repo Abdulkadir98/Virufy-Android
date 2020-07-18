@@ -1,4 +1,4 @@
-package com.example.myapplication
+package app.virufy
 
 
 import android.content.Context
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.virufy.R
+import app.virufy.R
 import kotlinx.android.synthetic.main.fragment_record_cough_fragment_intro.view.*
 
 /**

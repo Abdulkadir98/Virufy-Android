@@ -1,13 +1,10 @@
-package com.example.myapplication;
+package app.virufy;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
-import com.example.virufy.R;
+import app.virufy.R;
 
 public class Consent_Study extends AppCompatActivity {
 
