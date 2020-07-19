@@ -1,4 +1,4 @@
-package com.example.myapplication
+package app.virufy
 
 import org.junit.Test
 

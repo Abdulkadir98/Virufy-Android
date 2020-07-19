@@ -1,4 +1,4 @@
-package com.example.myapplication
+package app.virufy
 
 import android.Manifest
 import android.content.Context
@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.core.app.ActivityCompat
-import com.example.virufy.R
+import app.virufy.R
 import java.io.IOException
 
 private const val LOG_TAG = "AudioRecordTest"
@@ -142,7 +142,9 @@ class AudioRecordActivity : AppCompatActivity() {
         // Record to the external cache directory for visibility
         fileName = "${externalCacheDir?.absolutePath}/audiorecordtest.3gp"
 
-        ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION)
+        ActivityCompat.requestPermissions(this, permissions,
+            REQUEST_RECORD_AUDIO_PERMISSION
+        )
 
         recordButton = RecordButton(this)
         playButton = PlayButton(this)

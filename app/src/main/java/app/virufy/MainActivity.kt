@@ -1,4 +1,4 @@
-package com.example.virufy
+package app.virufy
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -6,9 +6,7 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.QuestionsFragment
-import com.example.myapplication.RecordAudioFragment
-import com.example.myapplication.RecordFragmentIntro
+
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.synthetic.main.activity_main.*

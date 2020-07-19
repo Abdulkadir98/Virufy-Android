@@ -1,4 +1,4 @@
-package com.example.myapplication
+package app.virufy
 
 
 import android.content.Context
@@ -11,7 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.virufy.R
+import app.virufy.R
 import kotlinx.android.synthetic.main.fragment_calibrate_audio.view.*
 import java.io.IOException
 
@@ -50,7 +50,8 @@ class RecordAudioFragment : Fragment() {
         const val ARG_POSITION = "position"
 
         fun getInstance(): Fragment {
-            val calibrateAudioFragment = RecordAudioFragment()
+            val calibrateAudioFragment =
+                RecordAudioFragment()
             val bundle = Bundle()
             return calibrateAudioFragment
         }

@@ -15,6 +15,7 @@
     <string name="record_you_coughing_for_10_seconds">We are now going to record you coughing for 10 seconds.</string>
     <string name="when_you_are_done_click_stop">When you are done, click stop!</string>
     <string name="start_btn_txt">Start</string>
+    <string name="i_agree_btn_txt">I agree</string>
 
     <string-array name="fragment_names">
         <item>Calibrate</item>

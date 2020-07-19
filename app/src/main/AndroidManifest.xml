@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.virufy">
+    package="app.virufy">
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
@@ -11,13 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.myapplication.AudioRecordActivity">
+        <activity android:name=".Consent_Study" android:parentActivityName=".TermsAndServices">
+
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".TermsAndServices" />
+        <activity android:name=".GetStartedPage" />
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".AudioRecordActivity" />
+        <activity android:name=".MainActivity">
         </activity>
     </application>
 
