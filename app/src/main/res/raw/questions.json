@@ -1,0 +1,74 @@
+[
+  {
+    "question": "Which of the following best describes you?",
+    "answers": [
+      "I have tested positive for COVID-19",
+      "I have tested negative for COVID-19",
+      "My test result is pending",
+      "I have not been tested for COVID-19"
+    ],
+    "type": "choice"
+  },
+  {
+    "question": "How long ago were you tested?",
+    "answers": [
+      "Within the last 15 days",
+      "More than 15 days ago",
+      "Not tested"
+    ],
+    "type": "choice"
+
+  },
+  {
+    "question": "Please enter your age group:",
+    "answers": [
+      "under 20",
+      "20-29",
+      "30-39",
+      "40-49",
+      "50-59",
+      "60-69",
+      "70+"
+    ],
+    "type": "dropdown"
+  },
+  {
+    "question": "What is your biological sex?",
+    "answers": [
+      "Female",
+      "Male"
+    ],
+    "type": "choice"
+  },
+  {
+    "question": "Which of the symptoms below do you currently have?",
+    "answers": [
+      "New or worsening cough",
+      "Shortness of breath",
+      "Fever, chills, or sweating",
+      "Sore throat",
+      "Body aches",
+      "Loss of taste",
+      "Loss of smell",
+      "Vomiting or diarrhea",
+      "Tightness in chest",
+      "Headaches",
+      "None"
+    ],
+    "type": "multiplechoice"
+  },
+  {
+    "question": "Please share your medical history",
+    "answers": [
+      "Asthma or chronic lung disease",
+      "Pregnancy",
+      "Diabetes with complications",
+      "Disease or conditions that affect cough",
+      "Congestive heart failure",
+      "Extreme obesity",
+      "Cough due to other medical conditions",
+      "None"
+    ],
+    "type": "multiplechoice"
+  }
+]

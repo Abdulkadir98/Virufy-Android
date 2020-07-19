@@ -9,9 +9,19 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.QuestionsFragment
 import com.example.myapplication.RecordAudioFragment
 import com.example.myapplication.RecordFragmentIntro
+import com.google.gson.Gson
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.synthetic.main.activity_main.*
 
 private const val REQUEST_RECORD_AUDIO_PERMISSION = 200
+
+// model for survey questions
+data class SurveyQuestion (
+
+    @SerializedName("question") val question : String,
+    @SerializedName("answers") val answers : List<String>,
+    @SerializedName("type") val type : String
+)
 
 class MainActivity : AppCompatActivity(), RecordAudioFragment.OnAudioSubmittedListener,
     RecordFragmentIntro.OnStartClickListener {
@@ -22,6 +32,10 @@ class MainActivity : AppCompatActivity(), RecordAudioFragment.OnAudioSubmittedLi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val jsonString = resources.openRawResource(R.raw.questions)
+            .bufferedReader().use { it.readText() }
+        val questions = Gson().fromJson(jsonString, Array<SurveyQuestion>::class.java)
 
         firstStageIv.setColorFilter(Color.parseColor("#1890FF"))
         calibrateTv.typeface = Typeface.DEFAULT_BOLD
@@ -35,7 +49,6 @@ class MainActivity : AppCompatActivity(), RecordAudioFragment.OnAudioSubmittedLi
         newFragment.arguments = bundle
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container, newFragment)
-        transaction.addToBackStack(null)
         transaction.commit()
 
 
