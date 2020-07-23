@@ -5,35 +5,39 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Parcelable
 import androidx.appcompat.app.AppCompatActivity
-
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.activity_main.*
 
 private const val REQUEST_RECORD_AUDIO_PERMISSION = 200
 
 // model for survey questions
+@Parcelize
 data class SurveyQuestion (
-
     @SerializedName("question") val question : String,
     @SerializedName("answers") val answers : List<String>,
     @SerializedName("type") val type : String
-)
+): Parcelable
 
 class MainActivity : AppCompatActivity(), RecordAudioFragment.OnAudioSubmittedListener,
-    RecordFragmentIntro.OnStartClickListener {
+    RecordFragmentIntro.OnStartClickListener, QuestionsIntroFragment.OnNextClickedListener {
     // Requesting permission to RECORD_AUDIO
     private var permissionToRecordAccepted = false
     private var permissions: Array<String> = arrayOf(Manifest.permission.RECORD_AUDIO)
+
+    private var jsonString: String = ""
+    private var questions: Array<SurveyQuestion> = arrayOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val jsonString = resources.openRawResource(R.raw.questions)
+         jsonString = resources.openRawResource(R.raw.questions)
             .bufferedReader().use { it.readText() }
-        val questions = Gson().fromJson(jsonString, Array<SurveyQuestion>::class.java)
+         questions = Gson().fromJson(jsonString, Array<SurveyQuestion>::class.java)
 
         firstStageIv.setColorFilter(Color.parseColor("#1890FF"))
         calibrateTv.typeface = Typeface.DEFAULT_BOLD
@@ -94,7 +98,7 @@ class MainActivity : AppCompatActivity(), RecordAudioFragment.OnAudioSubmittedLi
             recordCoughTv.typeface = Typeface.DEFAULT
             questionsTv.typeface = Typeface.DEFAULT_BOLD
             questionsTv.setTextColor(Color.parseColor("#000000"))
-            val newFragment = QuestionsFragment()
+            val newFragment = QuestionsIntroFragment()
             val transaction = supportFragmentManager.beginTransaction()
             transaction.replace(R.id.fragment_container, newFragment)
             transaction.addToBackStack(null)
@@ -126,5 +130,13 @@ class MainActivity : AppCompatActivity(), RecordAudioFragment.OnAudioSubmittedLi
             transaction.commit()
         }
 
+    }
+
+    override fun onNextClicked() {
+        val newFragment = QuestionsChoiceFragment.newInstance(questions[0])
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container, newFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 }

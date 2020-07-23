@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/questions_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/illustrationIv"
+        android:layout_width="match_parent"
+        android:layout_height="360dp">
+
+    </View>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/illustrationIv"
+        android:gravity="center_horizontal"
+        android:id="@+id/firstTv"
+        android:text="@string/almost_there"
+        android:textColor="#000"
+        android:textSize="24sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/firstTv"
+        android:id="@+id/secondTv"
+        android:gravity="center_horizontal"
+        android:text="@string/let_s_answer_a_few_questions"
+        android:textColor="#000"
+        android:textSize="18sp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="36dp"
+        android:layout_marginLeft="36dp"
+        android:textColor="#FFF"
+        android:id="@+id/nextBtn"
+        android:background="@drawable/button_background"
+        android:layout_marginBottom="68dp"
+        android:text="@string/next_btn_txt" />
+
+
+</RelativeLayout>

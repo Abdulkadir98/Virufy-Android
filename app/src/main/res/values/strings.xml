@@ -16,6 +16,9 @@
     <string name="when_you_are_done_click_stop">When you are done, click stop!</string>
     <string name="start_btn_txt">Start</string>
     <string name="i_agree_btn_txt">I agree</string>
+    <string name="almost_there">Almost there!</string>
+    <string name="let_s_answer_a_few_questions">Let’s answer a few questions...</string>
+    <string name="next_btn_txt">Next</string>
 
     <string-array name="fragment_names">
         <item>Calibrate</item>

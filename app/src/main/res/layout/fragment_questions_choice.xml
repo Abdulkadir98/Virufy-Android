@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/questionContainer"
+    tools:context=".QuestionsChoiceFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="24dp"
+        android:id="@+id/questionTv"
+        android:textColor="#000"
+        android:textSize="16sp"
+        tools:text="Which of the following best describes you?" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/choicesContainer"
+        android:layout_below="@id/questionTv"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="52dp"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/nextBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="84dp"
+        android:background="@drawable/submit_btn_background"
+        android:enabled="false"
+        android:text="@string/next_btn_txt"
+        android:textColor="@drawable/btn_txt_color"
+        android:padding="8dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp" />
+
+
+</RelativeLayout>
