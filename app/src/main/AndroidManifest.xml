@@ -11,14 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Consent_Study" android:parentActivityName=".TermsAndServices">
-
-        </activity>
+        <activity android:name=".SubmitActivity"></activity>
+        <activity
+            android:name=".Consent_Study"
+            android:parentActivityName=".TermsAndServices"></activity>
         <activity android:name=".TermsAndServices" />
         <activity android:name=".GetStartedPage" />
-        <activity android:name=".SplashScreen">
-
-        </activity>
+        <activity android:name=".SplashScreen"></activity>
         <activity android:name=".AudioRecordActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

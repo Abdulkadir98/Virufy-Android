@@ -1,47 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/questionContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/questionContainer"
+    android:orientation="vertical"
     tools:context=".QuestionsChoiceFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/questionTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginLeft="24dp"
-        android:id="@+id/questionTv"
+        android:layout_marginTop="32dp"
         android:textColor="#000"
         android:textSize="16sp"
         tools:text="Which of the following best describes you?" />
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/choiceScrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/choicesContainer"
-        android:layout_below="@id/questionTv"
+        android:layout_height="match_parent"
         android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
         android:layout_marginTop="52dp"
-        android:orientation="vertical">
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="60dp"
+        android:fillViewport="true">
 
-    </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/nextBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="84dp"
-        android:background="@drawable/submit_btn_background"
-        android:enabled="false"
-        android:text="@string/next_btn_txt"
-        android:textColor="@drawable/btn_txt_color"
-        android:padding="8dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp" />
+            <LinearLayout
+                android:id="@+id/choicesContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
 
-</RelativeLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/nextBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/submit_btn_background"
+                android:enabled="false"
+                android:layout_alignParentBottom="true"
+                android:padding="8dp"
+                android:text="@string/next_btn_txt"
+                android:textColor="@drawable/btn_txt_color" />
+
+        </RelativeLayout>
+
+
+
+
+    </ScrollView>
+
+</LinearLayout>

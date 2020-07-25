@@ -1,6 +1,7 @@
 package app.virufy
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.Typeface
@@ -16,14 +17,15 @@ private const val REQUEST_RECORD_AUDIO_PERMISSION = 200
 
 // model for survey questions
 @Parcelize
-data class SurveyQuestion (
-    @SerializedName("question") val question : String,
-    @SerializedName("answers") val answers : List<String>,
-    @SerializedName("type") val type : String
-): Parcelable
+data class SurveyQuestion(
+    @SerializedName("question") val question: String,
+    @SerializedName("answers") val answers: List<String>,
+    @SerializedName("type") val type: String
+) : Parcelable
 
 class MainActivity : AppCompatActivity(), RecordAudioFragment.OnAudioSubmittedListener,
-    RecordFragmentIntro.OnStartClickListener, QuestionsIntroFragment.OnNextClickedListener {
+    RecordFragmentIntro.OnStartClickListener, QuestionsIntroFragment.OnNextClickedListener,
+    QuestionsChoiceFragment.OnQuestionAnsweredListener {
     // Requesting permission to RECORD_AUDIO
     private var permissionToRecordAccepted = false
     private var permissions: Array<String> = arrayOf(Manifest.permission.RECORD_AUDIO)
@@ -35,9 +37,9 @@ class MainActivity : AppCompatActivity(), RecordAudioFragment.OnAudioSubmittedLi
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-         jsonString = resources.openRawResource(R.raw.questions)
+        jsonString = resources.openRawResource(R.raw.questions)
             .bufferedReader().use { it.readText() }
-         questions = Gson().fromJson(jsonString, Array<SurveyQuestion>::class.java)
+        questions = Gson().fromJson(jsonString, Array<SurveyQuestion>::class.java)
 
         firstStageIv.setColorFilter(Color.parseColor("#1890FF"))
         calibrateTv.typeface = Typeface.DEFAULT_BOLD
@@ -45,8 +47,14 @@ class MainActivity : AppCompatActivity(), RecordAudioFragment.OnAudioSubmittedLi
 
         val bundle = Bundle()
         bundle.putString("stage", "calibrate")
-        bundle.putString("firstMessage", resources.getString(R.string.record_you_coughing_for_10_seconds))
-        bundle.putString("secondMessage", resources.getString(R.string.when_you_are_done_click_stop))
+        bundle.putString(
+            "firstMessage",
+            resources.getString(R.string.record_you_coughing_for_10_seconds)
+        )
+        bundle.putString(
+            "secondMessage",
+            resources.getString(R.string.when_you_are_done_click_stop)
+        )
         val newFragment = RecordFragmentIntro()
         newFragment.arguments = bundle
         val transaction = supportFragmentManager.beginTransaction()
@@ -83,16 +91,21 @@ class MainActivity : AppCompatActivity(), RecordAudioFragment.OnAudioSubmittedLi
         if (stage.equals("calibrate")) {
             val bundle = Bundle()
             bundle.putString("stage", "record")
-            bundle.putString("firstMessage", resources.getString(R.string.record_you_coughing_for_10_seconds))
-            bundle.putString("secondMessage", resources.getString(R.string.when_you_are_done_click_stop))
+            bundle.putString(
+                "firstMessage",
+                resources.getString(R.string.record_you_coughing_for_10_seconds)
+            )
+            bundle.putString(
+                "secondMessage",
+                resources.getString(R.string.when_you_are_done_click_stop)
+            )
             val newFragment = RecordFragmentIntro()
             newFragment.arguments = bundle
             val transaction = supportFragmentManager.beginTransaction()
             transaction.replace(R.id.fragment_container, newFragment)
             transaction.addToBackStack(null)
             transaction.commit()
-        }
-        else if(stage.equals("record")) {
+        } else if (stage.equals("record")) {
             second_divider_view.setBackgroundColor(Color.parseColor("#1890FF"))
             thirdStageIv.setColorFilter(Color.parseColor("#1890FF"))
             recordCoughTv.typeface = Typeface.DEFAULT
@@ -118,8 +131,7 @@ class MainActivity : AppCompatActivity(), RecordAudioFragment.OnAudioSubmittedLi
             transaction.replace(R.id.fragment_container, newFragment)
             transaction.addToBackStack(null)
             transaction.commit()
-        }
-        else if (stage.equals("record")) {
+        } else if (stage.equals("record")) {
             val bundle = Bundle()
             bundle.putString("stage", "record")
             val newFragment = RecordAudioFragment()
@@ -133,7 +145,20 @@ class MainActivity : AppCompatActivity(), RecordAudioFragment.OnAudioSubmittedLi
     }
 
     override fun onNextClicked() {
-        val newFragment = QuestionsChoiceFragment.newInstance(questions[0])
+        // start with the first question
+        val newFragment = QuestionsChoiceFragment.newInstance(questions[0], 0)
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container, newFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
+    override fun onNextClicked(position: Int) {
+        if(position == questions.size) {
+            startActivity(Intent(this, SubmitActivity::class.java))
+            return
+        }
+        val newFragment = QuestionsChoiceFragment.newInstance(questions[position], position)
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container, newFragment)
         transaction.addToBackStack(null)

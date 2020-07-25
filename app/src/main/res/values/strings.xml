@@ -19,6 +19,9 @@
     <string name="almost_there">Almost there!</string>
     <string name="let_s_answer_a_few_questions">Let’s answer a few questions...</string>
     <string name="next_btn_txt">Next</string>
+    <string name="thank_you_for_submitting">Thank you for submitting</string>
+    <string name="our_application">our application.</string>
+    <string name="finish_btn_txt">Finish</string>
 
     <string-array name="fragment_names">
         <item>Calibrate</item>
